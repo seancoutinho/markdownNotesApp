@@ -26,12 +26,20 @@ export default function App() {
     }
     
     function updateNote(text) {
+
+        // this function updates a selected note and moves it to the top for quicker reference
         setNotes(oldNotes => oldNotes.map(oldNote => {
-            return oldNote.id === currentNoteId
-                ? { ...oldNote, body: text }
-                : oldNote
-        }))
-    }
+            const newArray = [];
+            for(i=0; i<oldNotes.length; i++) {
+                if(oldNotes[i].id === currentNoteId) {
+                    newArray.unshift({ ...oldNotes[i], body: text});
+                } else {
+                    newArray.push(oldNotes[i]);
+                }
+            }
+            return newArray;
+        })
+
     
     function findCurrentNote() {
         return notes.find(note => {
